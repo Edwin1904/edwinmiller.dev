@@ -64,6 +64,9 @@ figcaption{font-size:14px;color:var(--ink2);margin-top:10px;max-width:700px}
 .steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;counter-reset:s;margin:28px 0}
 .steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;font-weight:500;font-size:15px}
 .steps li::before{content:counter(s,decimal-leading-zero);display:block;font:500 13px 'JetBrains Mono',monospace;color:var(--accent);margin-bottom:6px}
+.steps li em{display:block;font:500 11px 'JetBrains Mono',monospace;font-style:normal;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-bottom:4px}
+.steps li.now{border-color:var(--accent);background:var(--accent-soft)}
+.steps li.now em{color:var(--accent)}
 /* lightbox */
 a.zoom{display:block;cursor:zoom-in}
 dialog.lb{border:0;padding:0;background:transparent;max-width:96vw;max-height:94vh;margin:auto}
@@ -110,7 +113,7 @@ dialog.lb img{display:block;max-width:96vw;max-height:94vh;width:auto;height:aut
   </div>
   <div class="grid3">
     <div class="card"><h3>My role</h3><p>The web app, the PostgreSQL schema, access control and security, reports, plus the data contracts the Android and iOS apps build on.</p></div>
-    <div class="card"><h3>Stack</h3><p>Next.js 14 App Router, TypeScript, Tailwind, Supabase (PostgreSQL, Auth, Edge Functions), Vercel, Chart.js, jsPDF, ExcelJS, Metabase.</p></div>
+    <div class="card"><h3>Stack</h3><p>Next.js 16 App Router, TypeScript, Tailwind, Supabase (PostgreSQL, Auth, Edge Functions), Vercel, Chart.js, jsPDF, ExcelJS, Metabase.</p></div>
     <div class="card"><h3>Team</h3><p>Three student developers and a faculty advisor, with weekly agile check-ins.</p></div>
   </div>
 </div></section>
@@ -365,12 +368,13 @@ dialog.lb img{display:block;max-width:96vw;max-height:94vh;width:auto;height:aut
 <section id="next"><div class="wrap">
   <p class="eyebrow">Status and what's next</p>
   <h2>The rollout path</h2>
+  <p class="sub">None of these steps is finished yet. The UNADECA pilot is about to begin; the rest follow it.</p>
   <ol class="steps">
-    <li>UNADECA pilot</li>
-    <li>Real enrollment</li>
-    <li>Real structure</li>
-    <li>App stores</li>
-    <li>Whole union</li>
+    <li class="now"><em>Starting now</em>UNADECA pilot</li>
+    <li><em>Next</em>Real enrollment</li>
+    <li><em>Next</em>Real structure</li>
+    <li><em>Next</em>App stores</li>
+    <li><em>Next</em>Whole union</li>
   </ol>
 </div></section>
 
