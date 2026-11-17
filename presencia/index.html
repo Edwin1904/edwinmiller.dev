@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presencia Líder — Case Study · Edwin Miller Freckleton</title>
+<meta name="description" content="Case study: Presencia Líder, a small-group management platform for Adventist churches in Costa Rica. Next.js, PostgreSQL row-level security, reports and performance work.">
+<link rel="canonical" href="https://edwinmiller.dev/presencia">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://edwinmiller.dev/presencia">
+<meta property="og:title" content="Presencia Líder — Case Study">
+<meta property="og:description" content="A small-group management platform for Adventist churches in Costa Rica, from the local group up to the national union.">
+<meta property="og:image" content="https://edwinmiller.dev/assets/presencia/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234a7fd4'/><text x='50' y='68' font-size='56' font-family='Georgia' text-anchor='middle' fill='white'>E</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* case-study additions; base tokens and components come from /styles.css */
+section{scroll-margin-top:60px}
+.back{font-size:15px;color:var(--ink2);text-decoration:none}
+.back:hover{color:var(--ink)}
+.prose{max-width:700px;color:var(--ink2)}
+.prose p{margin-bottom:16px}
+.prose b{color:var(--ink);font-weight:600}
+h3.h{font:600 22px Fraunces,serif;margin:44px 0 12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+figure{margin:28px 0}
+figure img,figure video{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:var(--card)}
+figcaption{font-size:14px;color:var(--ink2);margin-top:10px;max-width:700px}
+.duo{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;align-items:start}
+.duo figure{margin:0}
+.callout{background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:12px;padding:20px 24px;margin:28px 0;max-width:760px}
+.callout.gold{background:var(--gold-soft);border-color:var(--gold)}
+.callout b{display:block;font:600 18px Fraunces,serif;margin-bottom:6px}
+.callout p{color:var(--ink2);font-size:16px}
+.big{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.big .stat b{font-size:clamp(30px,5vw,44px)}
+/* hierarchy diagram */
+.tree{list-style:none;display:flex;flex-direction:column;gap:22px;margin:32px 0 12px;max-width:520px}
+.tree li{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 18px;display:flex;justify-content:space-between;gap:12px;font-weight:500}
+.tree li span{font:500 13px 'JetBrains Mono',monospace;color:var(--accent);align-self:center;text-align:right}
+.tree li:not(:last-child)::after{content:"";position:absolute;left:28px;bottom:-23px;height:22px;border-left:2px solid var(--accent)}
+.tree li:nth-child(2){margin-left:4%}.tree li:nth-child(3){margin-left:8%}.tree li:nth-child(4){margin-left:12%}.tree li:nth-child(5){margin-left:16%}.tree li:nth-child(6){margin-left:20%}
+/* architecture diagram */
+.arch{display:grid;grid-template-columns:1fr auto 1.3fr auto 1fr;gap:14px;align-items:center;margin:32px 0}
+.arch-col{display:flex;flex-direction:column;gap:12px}
+.node{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:15px}
+.node b{display:block;font-weight:600}
+.node small{color:var(--ink2);font-size:13px;display:block;line-height:1.45}
+.db{border:2px dashed var(--accent);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px;background:var(--accent-soft)}
+.db > p{font:600 13px 'JetBrains Mono',monospace;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.arrow{font:500 22px 'JetBrains Mono',monospace;color:var(--accent);text-align:center}
+.arrow::before{content:"→"}
+.col-label{font:500 12px 'JetBrains Mono',monospace;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em}
+/* phones */
+.phones{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;margin:20px 0 8px}
+.phones figure{margin:0}
+.phones img,.phones video{border-radius:18px}
+.label{font:500 12px 'JetBrains Mono',monospace;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;margin-top:36px}
+/* status steps */
+.steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;counter-reset:s;margin:28px 0}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;font-weight:500;font-size:15px}
+.steps li::before{content:counter(s,decimal-leading-zero);display:block;font:500 13px 'JetBrains Mono',monospace;color:var(--accent);margin-bottom:6px}
+/* lightbox */
+a.zoom{display:block;cursor:zoom-in}
+dialog.lb{border:0;padding:0;background:transparent;max-width:96vw;max-height:94vh;margin:auto}
+dialog.lb::backdrop{background:rgba(10,12,18,.86)}
+dialog.lb img{display:block;max-width:96vw;max-height:94vh;width:auto;height:auto;border-radius:10px;cursor:zoom-out}
+@media(max-width:760px){
+  .grid3,.duo,.big{grid-template-columns:1fr}
+  .arch{grid-template-columns:1fr}
+  .arrow::before{content:"↓"}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .tree li:nth-child(n){margin-left:0}
+}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="/">Edwin Miller</a>
+  <ul>
+    <li><a class="back" href="/#work">← Back to portfolio</a></li>
+    <li class="hide-sm"><a href="#architecture">Architecture</a></li>
+    <li class="hide-sm"><a href="#performance">Performance</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <p class="eyebrow">Case study</p>
+  <h1>Presencia Líder</h1>
+  <p class="lead">A small-group management platform for Adventist churches in Costa Rica, from the local group up to the national union.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://presenciaapp.vercel.app" target="_blank" rel="noopener">Visit the live site</a>
+    <a class="btn" href="#overview">Watch the 45-second overview</a>
+  </div>
+</div></header>
+
+<section id="glance"><div class="wrap">
+  <p class="eyebrow">At a glance</p>
+  <h2>The project in numbers</h2>
+  <div class="stats">
+    <div class="stat"><b>188</b><span>database migrations</span></div>
+    <div class="stat"><b>52</b><span>pages in the web app</span></div>
+    <div class="stat"><b>7</b><span>roles, each with its own scope</span></div>
+    <div class="stat"><b>296</b><span>real congregations loaded</span></div>
+  </div>
+  <div class="grid3">
+    <div class="card"><h3>My role</h3><p>The web app, the PostgreSQL schema, access control and security, reports, plus the data contracts the Android and iOS apps build on.</p></div>
+    <div class="card"><h3>Stack</h3><p>Next.js 14 App Router, TypeScript, Tailwind, Supabase (PostgreSQL, Auth, Edge Functions), Vercel, Chart.js, jsPDF, ExcelJS, Metabase.</p></div>
+    <div class="card"><h3>Team</h3><p>Three student developers and a faculty advisor, with weekly agile check-ins.</p></div>
+  </div>
+</div></section>
+
+<section id="problem"><div class="wrap">
+  <p class="eyebrow">The problem</p>
+  <h2>Hundreds of small groups, reported on paper and WhatsApp.</h2>
+  <div class="prose">
+    <p>Each week a group leader takes attendance and logs activities and offerings. That data has to reach the pastor, the conference and the union, which meant spreadsheets, photos and phone calls.</p>
+    <p>Presencia Líder replaces that chain with one system where each person sees only their part of the church.</p>
+  </div>
+  <ol class="tree" aria-label="Church hierarchy, from top to bottom">
+    <li>Union <span>union admin</span></li>
+    <li>Conference / Mission <span>campo admin</span></li>
+    <li>District <span>pastor</span></li>
+    <li>Church <span>elder</span></li>
+    <li>Small group <span>leader</span></li>
+    <li>Member <span>phone app</span></li>
+  </ol>
+  <p class="prose" style="font-size:15px">The data model mirrors the real church hierarchy. A report starts on the leader's phone and rolls up automatically.</p>
+  <figure>
+    <a class="zoom" href="/assets/presencia/data-model.webp"><img src="/assets/presencia/data-model.webp" width="1600" height="1000" loading="lazy" alt="Simplified data model: union, campo, district, church, small group and member tables in a chain, with meetings, attendance, activity records, role assignments and the UNADECA assignment tables around them."></a>
+    <figcaption>The simplified data model. Labels are in Spanish because the product is Spanish-language.</figcaption>
+  </figure>
+</div></section>
+
+<section id="team"><div class="wrap">
+  <p class="eyebrow">Who did what</p>
+  <h2>Three codebases, one database</h2>
+  <div class="grid">
+    <div class="card"><p class="kicker">Me · web &amp; backend</p><h3>Edwin Miller</h3><p>The web app for every role above the group leader; the database schema, migrations and row-level security; reports, exports and performance; data contracts and handoff docs.</p></div>
+    <div class="card"><p class="kicker">Android</p><h3>Android developer</h3><p>The Android app and the integration with UNADECA's enrollment system.</p></div>
+    <div class="card"><p class="kicker">iOS</p><h3>iOS developer</h3><p>The iOS app and the email design.</p></div>
+    <div class="card"><p class="kicker">Advisor</p><h3>Eduardo Martínez</h3><p>Senior Software Engineer and course professor, supervising the project.</p></div>
+  </div>
+  <div class="callout"><p>Every database change that affects the apps ships with a short handoff document, so the three codebases stay in sync.</p></div>
+</div></section>
+
+<section id="architecture"><div class="wrap">
+  <p class="eyebrow">Architecture</p>
+  <h2>One database behind the web and both apps</h2>
+  <div class="arch" role="img" aria-label="Architecture: the web app, Android app and iOS app all talk to one Supabase project (PostgreSQL with row-level security, Auth and Edge Functions), which connects to Brevo email, UNADECA enrollment and a Metabase replica. A separate demo project mirrors it.">
+    <div class="arch-col">
+      <p class="col-label">Clients</p>
+      <div class="node"><b>Web app</b><small>Next.js on Vercel</small></div>
+      <div class="node"><b>Android app</b><small>offline sync (PowerSync)</small></div>
+      <div class="node"><b>iOS app</b><small>offline sync (PowerSync)</small></div>
+    </div>
+    <div class="arrow" aria-hidden="true"></div>
+    <div class="db">
+      <p>Supabase</p>
+      <div class="node"><b>PostgreSQL</b><small>row-level security on every table</small></div>
+      <div class="node"><b>Auth</b><small>invite-only accounts</small></div>
+      <div class="node"><b>Edge Functions</b><small>invites, passwords, account deletion, enrollment sync</small></div>
+    </div>
+    <div class="arrow" aria-hidden="true"></div>
+    <div class="arch-col">
+      <p class="col-label">Around it</p>
+      <div class="node"><b>Brevo</b><small>transactional email</small></div>
+      <div class="node"><b>UNADECA enrollment</b><small>student sync by ID</small></div>
+      <div class="node"><b>Metabase</b><small>reads a cron-synced replica</small></div>
+      <div class="node"><b>Demo project</b><small>separate, so the product can be shown without touching real data</small></div>
+    </div>
+  </div>
+  <div class="callout"><b>Security lives in the database, not only in the screens.</b><p>The web app, both phone apps and any raw API call hit the same policies, so hiding a button is never the only thing standing between a user and data they shouldn't see.</p></div>
+</div></section>
+
+<section id="access"><div class="wrap">
+  <p class="eyebrow">Access control · the technical heart</p>
+  <h2>Each person sees only their part of the church</h2>
+  <figure>
+    <a class="zoom" href="/assets/presencia/rls-policy.webp"><img src="/assets/presencia/rls-policy.webp" width="1600" height="900" loading="lazy" alt="SQL code: a row-level security policy on the meeting table that allows a select only when the meeting's small group is in auth_read_scope_group_ids(), followed by that helper function, which joins small_group, church, district and campo to the signed-in user's active role assignments and returns the matching group IDs."></a>
+    <figcaption>The policy on <code>meeting</code> and the helper it calls, from the launch security migration.</figcaption>
+  </figure>
+  <div class="prose">
+    <p>The policy on <code>meeting</code> only lets a user read groups returned by one helper function. The helper walks church, district, conference and union, and matches each <b>active role assignment</b> of the signed-in user: an elder sees their church, a pastor their district, a conference admin their conference. Wrapped in <code>(select …)</code>, it runs <b>once per query</b> rather than once per row, so the check stays fast.</p>
+  </div>
+  <div class="grid3" style="margin-top:28px">
+    <div class="card"><h3>Row-level security everywhere</h3><p>Every table has policies; nothing is readable just because a screen doesn't show it.</p></div>
+    <div class="card"><h3>Invite-only accounts</h3><p>No public sign-up. Credentials are hashed, and people set their own password from an email invite.</p></div>
+    <div class="card"><h3>Demo and production apart</h3><p>A separate demo project, so the product can be shown without touching real data.</p></div>
+    <div class="card"><h3>Audits before real data</h3><p>Security audits ran before real church data went in, and their findings were fixed first.</p></div>
+    <div class="card"><h3>Privacy law</h3><p>A public privacy policy and self-service account deletion, following Costa Rica's Law 8968.</p></div>
+    <div class="card"><h3>Safe by default</h3><p>Rate limiting per IP, soft deletes only, and scope checks a pastor can't bypass outside their district.</p></div>
+  </div>
+  <div class="callout gold"><b>A bug worth telling</b><p>Approve and reject actions called the database with an admin client that carries no user identity, so the policy check saw no user at all. I traced it, moved those calls to the signed-in user's client, and made the guard fail closed.</p></div>
+</div></section>
+
+<section id="web"><div class="wrap">
+  <p class="eyebrow">The web app</p>
+  <h2>Same components, different scope</h2>
+  <p class="sub">Row-level security decides which rows come back, so there's no separate code path per role.</p>
+  <div class="duo">
+    <figure>
+      <video class="clip" muted loop playsinline preload="none" width="1280" height="720" poster="/assets/presencia/clip-pastor-dashboard-poster.webp" aria-label="Pastor dashboard: active groups, meetings sent this week, pending reports and attendance, then the list of groups with their weekly status."><source src="/assets/presencia/clip-pastor-dashboard.mp4" type="video/mp4"></video>
+      <figcaption>Pastor: which groups reported this week.</figcaption>
+    </figure>
+    <figure>
+      <a class="zoom" href="/assets/presencia/director-dashboard.webp"><img src="/assets/presencia/director-dashboard.webp" width="1440" height="900" loading="lazy" alt="University director dashboard: counts of active student pastors, supervised groups, meetings and attendance, then a card per student with their churches, groups, meetings and attendance."></a>
+      <figcaption>University director: students, groups and attendance.</figcaption>
+    </figure>
+  </div>
+  <div class="duo" style="margin-top:20px">
+    <figure>
+      <video class="clip" muted loop playsinline preload="none" width="1280" height="720" poster="/assets/presencia/clip-group-detail-poster.webp" aria-label="Group detail page: the member list with leader controls, then the quarter's activity totals."><source src="/assets/presencia/clip-group-detail.mp4" type="video/mp4"></video>
+      <figcaption>A group's members and its quarter at a glance.</figcaption>
+    </figure>
+    <figure>
+      <video class="clip" muted loop playsinline preload="none" width="1280" height="720" poster="/assets/presencia/clip-meetings-poster.webp" aria-label="Meetings page: each submitted meeting with who was present, absent or excused and the activities logged."><source src="/assets/presencia/clip-meetings.mp4" type="video/mp4"></video>
+      <figcaption>The week's meetings, as sent from the leaders' phones.</figcaption>
+    </figure>
+  </div>
+</div></section>
+
+<section id="reports"><div class="wrap">
+  <p class="eyebrow">Reports</p>
+  <h2>From one group to the whole union</h2>
+  <div class="prose">
+    <p>Attendance, studies, visits and offerings by week, month, quarter or year, compared across conferences, districts, churches or groups. Export to PDF, Excel and CSV.</p>
+    <p>Two details came from real use: the <b>current month is drawn dashed</b> so a half-finished period doesn't read as a drop, and numbers use <b>Costa Rican format</b> (decimal comma, colones).</p>
+  </div>
+  <figure>
+    <video class="clip" muted loop playsinline preload="none" width="1280" height="720" poster="/assets/presencia/clip-union-reports-year-poster.webp" aria-label="Union yearly report: switching to a monthly view, then scrolling through attendance trends, activities by period, per-activity cards and the quarter's top attenders."><source src="/assets/presencia/clip-union-reports-year.mp4" type="video/mp4"></video>
+    <figcaption>The union's yearly report, monthly granularity, scrolled top to bottom.</figcaption>
+  </figure>
+  <div class="duo">
+    <figure>
+      <video class="clip" muted loop playsinline preload="none" width="1280" height="720" poster="/assets/presencia/clip-union-compare-poster.webp" aria-label="Comparison report across conferences: unticking one conference in a card, applying that selection to every card, then exporting a PDF."><source src="/assets/presencia/clip-union-compare.mp4" type="video/mp4"></video>
+      <figcaption>Comparing conferences, applying one selection to every card, then exporting (sped up 1.35×).</figcaption>
+    </figure>
+    <figure>
+      <a class="zoom" href="/assets/presencia/reports-pdf.webp"><img src="/assets/presencia/reports-pdf.webp" width="1600" height="900" loading="lazy" alt="Cover page of an exported PDF report: Informe general for the union, Q4 2026, with key indicators for attendance, Bible studies, visitors and missionary pairs, and four key points."></a>
+      <figcaption>The PDF export: a cover with key indicators, then one chart per section.</figcaption>
+    </figure>
+  </div>
+</div></section>
+
+<section id="performance"><div class="wrap">
+  <p class="eyebrow">Performance</p>
+  <h2>About 6× faster, same results row for row</h2>
+  <div class="big">
+    <div class="stat"><b>930 → 155 ms</b><span>union yearly report, database time</span></div>
+    <div class="stat"><b>190 → 70 ms</b><span>quarterly report, database time</span></div>
+  </div>
+  <ul class="prose" style="margin:0 0 0 20px">
+    <li style="margin-bottom:8px">Measured with <code>EXPLAIN ANALYZE</code> under each role's permissions, on realistic data.</li>
+    <li style="margin-bottom:8px">Moved the math into Postgres: one aggregating function instead of fetching thousands of rows into JavaScript.</li>
+    <li style="margin-bottom:8px">About 12 sequential queries now run in parallel.</li>
+    <li style="margin-bottom:8px">Tabs and charts load when opened, with indexes on the large tables.</li>
+  </ul>
+  <div class="duo" style="margin-top:28px">
+    <figure>
+      <a class="zoom" href="/assets/presencia/query-timings.webp"><img src="/assets/presencia/query-timings.webp" width="1600" height="900" loading="lazy" alt="Table of median timings for get_reportes_data before and after the rewrite: quarter 190.1 ms to 69.9 ms (2.7×), year 930.0 ms to 155.4 ms (6.0×), with identical row counts."></a>
+      <figcaption>Old and new outputs compared with <code>EXCEPT ALL</code>: zero rows differ. Medians of 7 alternating runs, measured October 8, 2026.</figcaption>
+    </figure>
+    <figure>
+      <a class="zoom" href="/assets/presencia/report-function.webp"><img src="/assets/presencia/report-function.webp" width="1600" height="900" loading="lazy" alt="SQL code: the get_reportes_data function, taking group IDs and a date range and returning per-meeting present, justified and absent counts from a lateral join on attendance."></a>
+      <figcaption>The rewritten <code>get_reportes_data</code>: counting happens in a lateral join inside Postgres.</figcaption>
+    </figure>
+  </div>
+</div></section>
+
+<section id="analytics"><div class="wrap">
+  <p class="eyebrow">Analytics layer</p>
+  <h2>Dashboards that never touch production</h2>
+  <p class="prose">A separate <code>analytics</code> schema with materialized views and at-risk snapshots (members drifting away, inactive groups, lapsing visitors), feeding Metabase dashboards that read from a cron-synced replica, never from production.</p>
+</div></section>
+
+<section id="unadeca"><div class="wrap">
+  <p class="eyebrow">Pilot module</p>
+  <h2>Student pastors for UNADECA</h2>
+  <p class="sub">Student pastors managed by their university director.</p>
+  <div class="grid">
+    <div class="card"><h3>Bulk import</h3><p>From Excel, with a row-by-row error preview before anything is saved.</p></div>
+    <div class="card"><h3>Enrollment sync</h3><p>Matched by student ID. It refuses a suspicious feed: an empty one, or one that would drop more than half the students at once.</p></div>
+    <div class="card"><h3>Assignments</h3><p>Weekly assignments, evidence review, comments and semester PDF reports.</p></div>
+    <div class="card"><h3>Linked to churches</h3><p>Students link to churches, not pastors, because pastors move.</p></div>
+  </div>
+</div></section>
+
+<section id="workflows"><div class="wrap">
+  <p class="eyebrow">Real workflows</p>
+  <h2>What people actually do in it</h2>
+  <div class="grid3">
+    <div class="card"><h3>Approvals</h3><p>A pastor asks to move a church, the conference approves, and the database blocks changes outside its territory.</p></div>
+    <div class="card"><h3>At-risk alerts</h3><p>Members who missed six meetings in a row are flagged for a visit.</p></div>
+    <div class="card"><h3>Invitations</h3><p>An email invite, and the user sets their own password.</p></div>
+  </div>
+  <figure>
+    <a class="zoom" href="/assets/presencia/transfer-request.webp"><img src="/assets/presencia/transfer-request.webp" width="1440" height="900" loading="lazy" alt="Organization structure page for a mission, with a pending request to move a church to another district, and approve and reject buttons."></a>
+    <figcaption>A pending church transfer, waiting for the conference to approve or reject it.</figcaption>
+  </figure>
+  <div class="callout"><b>The streak rule</b><p>Present adds one. An excused absence doesn't break the streak. An absence resets it.</p></div>
+</div></section>
+
+<section id="mobile"><div class="wrap">
+  <p class="eyebrow">Mobile apps</p>
+  <h2>The report starts on the leader's phone</h2>
+  <div class="prose">
+    <p>The Android and iOS developers built the apps on my backend. My part was product ideas for the leader and member flows, plus the schema, sync rules and handoff docs.</p>
+    <p>Offline sync runs on PowerSync, so web dashboards update as soon as a leader sends a meeting.</p>
+  </div>
+  <p class="label">Native app</p>
+  <div class="phones">
+    <figure>
+      <a class="zoom" href="/assets/presencia/app-meeting-summary.webp"><img src="/assets/presencia/app-meeting-summary.webp" width="540" height="1170" loading="lazy" alt="Phone app, register meeting step 3 of 3: the group's date, 5 present, 2 absent, 71% attendance and the activities, with a Send to pastor button."></a>
+      <figcaption>Leader: meeting summary, ready to send.</figcaption>
+    </figure>
+    <figure>
+      <a class="zoom" href="/assets/presencia/app-leader-approvals.webp"><img src="/assets/presencia/app-leader-approvals.webp" width="540" height="1170" loading="lazy" alt="Phone app approvals screen: a member's contribution waiting for the leader, with reject and approve buttons."></a>
+      <figcaption>Leader: approving a member's contribution.</figcaption>
+    </figure>
+    <figure>
+      <video class="clip" muted loop playsinline preload="none" width="432" height="936" poster="/assets/presencia/clip-app-member-contribution-poster.webp" aria-label="Phone app: a member opens their activities, adds a 10,000 colón contribution, and it shows as pending approval."><source src="/assets/presencia/clip-app-member-contribution.mp4" type="video/mp4"></video>
+      <figcaption>Member: logging a contribution.</figcaption>
+    </figure>
+  </div>
+  <p class="label">Web app at phone width</p>
+  <div class="phones">
+    <figure><a class="zoom" href="/assets/presencia/phone-pastor-home.webp"><img src="/assets/presencia/phone-pastor-home.webp" width="780" height="1600" loading="lazy" alt="Pastor home on a phone: active groups, meetings sent, pending reports and attendance, then each group's status."></a><figcaption>Pastor home</figcaption></figure>
+    <figure><a class="zoom" href="/assets/presencia/phone-saturday-checkin.webp"><img src="/assets/presencia/phone-saturday-checkin.webp" width="780" height="1600" loading="lazy" alt="Saturday check-in page opened from a church QR code: pick your small group, or check in as a visitor."></a><figcaption>Saturday QR check-in</figcaption></figure>
+    <figure><a class="zoom" href="/assets/presencia/phone-union-reports.webp"><img src="/assets/presencia/phone-union-reports.webp" width="780" height="1600" loading="lazy" alt="Union reports on a phone: export buttons, period, activity, report type and granularity filters."></a><figcaption>Union reports</figcaption></figure>
+    <figure><a class="zoom" href="/assets/presencia/phone-login.webp"><img src="/assets/presencia/phone-login.webp" width="780" height="1600" loading="lazy" alt="Sign-in screen with email and password fields."></a><figcaption>Sign in</figcaption></figure>
+    <figure><a class="zoom" href="/assets/presencia/phone-leader-portal.webp"><img src="/assets/presencia/phone-leader-portal.webp" width="780" height="1600" loading="lazy" alt="Message telling a group leader that the web portal is for pastors and elders, and to use the mobile app."></a><figcaption>Leaders are sent to the app</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="process"><div class="wrap">
+  <p class="eyebrow">How I work</p>
+  <h2>Habits that kept it shippable</h2>
+  <div class="grid">
+    <div class="card"><h3>Verify by observing</h3><p>A change isn't done until I've seen it work: the query plan, the screen, the row counts before and after.</p></div>
+    <div class="card"><h3>Every change is a migration</h3><p>Dated, in version control, and tested on the demo project first.</p></div>
+    <div class="card"><h3>AI-assisted, human-owned</h3><p>I use Claude Code to move faster. I plan, decide, review and test.</p></div>
+    <div class="card"><h3>Write it down</h3><p>Handoff docs, a changelog and a lessons file, so nothing lives only in my head.</p></div>
+  </div>
+  <figure>
+    <a class="zoom" href="/assets/presencia/migrations.webp"><img src="/assets/presencia/migrations.webp" width="1600" height="900" loading="lazy" alt="Terminal listing the 15 most recent migration files, from pastoral alerts to meeting submission, and a count of 188 migrations."></a>
+    <figcaption>The latest migrations, out of 188.</figcaption>
+  </figure>
+</div></section>
+
+<section id="overview"><div class="wrap">
+  <p class="eyebrow">Overview video</p>
+  <h2>The app in 45 seconds</h2>
+  <figure>
+    <video controls playsinline preload="metadata" width="1280" height="720" poster="/assets/presencia/landing-en-poster.webp"><source src="/assets/presencia/landing-en.mp4" type="video/mp4">Your browser can't play this video. <a href="/assets/presencia/landing-en.mp4">Download it</a>.</video>
+    <figcaption>From the leader's phone to the pastor's dashboard to the union's reports.</figcaption>
+  </figure>
+</div></section>
+
+<section id="next"><div class="wrap">
+  <p class="eyebrow">Status and what's next</p>
+  <h2>The rollout path</h2>
+  <ol class="steps">
+    <li>UNADECA pilot</li>
+    <li>Real enrollment</li>
+    <li>Real structure</li>
+    <li>App stores</li>
+    <li>Whole union</li>
+  </ol>
+</div></section>
+
+<section id="contact" class="contact"><div class="wrap">
+  <p class="eyebrow">Contact</p>
+  <h2>Get in touch</h2>
+  <p class="sub">Questions about Presencia Líder, or a role where this kind of work fits? Email is fastest.</p>
+  <a class="mail" href="mailto:contact@edwinmiller.dev">contact@edwinmiller.dev</a>
+  <div class="links">
+    <a class="btn" href="https://www.linkedin.com/in/edwin-miller-freckleton-8b218316a/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn" href="https://github.com/Edwin1904" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href="/">Back to portfolio</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><span>© <script>document.write(new Date().getFullYear())</script> Edwin Miller Freckleton</span><span>Alajuela, Costa Rica</span></div></footer>
+
+<dialog class="lb" id="lb" aria-label="Enlarged image"><img alt=""></dialog>
+<script>
+// Clips play only while on screen; with reduced motion they get controls instead.
+const clips = document.querySelectorAll('video.clip');
+if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+  clips.forEach(v => v.controls = true);
+} else {
+  const io = new IntersectionObserver(es => es.forEach(e =>
+    e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), {threshold: .35});
+  clips.forEach(v => io.observe(v));
+}
+// Lightbox: links still open the image directly if this script or <dialog> is unavailable.
+const lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
+if (lb.showModal) {
+  document.querySelectorAll('a.zoom').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    lbImg.src = a.href; lbImg.alt = a.querySelector('img').alt;
+    lb.showModal();
+  }));
+  lb.addEventListener('click', () => lb.close());
+}
+</script>
+</body>
+</html>

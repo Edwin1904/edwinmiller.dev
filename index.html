@@ -11,88 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#f6f5f1; --card:#ffffff; --ink:#1b2230; --ink2:#5b6475; --line:#e3e1da;
-  --accent:#3b6fc7; --accent-soft:#e8eefa; --gold:#b8913a; --gold-soft:#f6efdf;
-}
-@media (prefers-color-scheme:dark){
-  :root{ --bg:#10141c; --card:#171c27; --ink:#eef0f4; --ink2:#a2abbb; --line:#262d3b; --accent:#7ea6ec; --accent-soft:#1a2438; --gold:#d3ad5a; --gold-soft:#2a2414; }
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font:400 17px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-a{color:inherit}
-code{font:400 .88em 'JetBrains Mono',monospace;background:var(--accent-soft);padding:1px 6px;border-radius:6px}
-.wrap{max-width:980px;margin:0 auto;padding:0 24px}
-nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
-.logo{font:600 20px Fraunces,serif;text-decoration:none}
-nav ul{display:flex;gap:26px;list-style:none;font-size:15px}
-nav ul a{text-decoration:none;color:var(--ink2)}
-nav ul a:hover{color:var(--ink)}
-.hero{padding:96px 0 72px}
-.eyebrow{font:500 13px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-h1{font:600 clamp(40px,7vw,68px)/1.05 Fraunces,serif;letter-spacing:-.02em;margin:18px 0 22px}
-h1 em{font-style:italic;color:var(--accent)}
-.lead{font-size:20px;color:var(--ink2);max-width:660px}
-.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
-.btn{display:inline-block;padding:12px 22px;border-radius:999px;font-weight:500;font-size:15px;text-decoration:none;border:1px solid var(--line);background:var(--card);transition:transform .15s}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn:hover{transform:translateY(-1px)}
-.hero-facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:40px;font-size:15px;color:var(--ink2)}
-.hero-facts b{color:var(--ink);font-weight:600}
-section{padding:72px 0;border-top:1px solid var(--line)}
-h2{font:600 clamp(28px,4vw,38px)/1.15 Fraunces,serif;letter-spacing:-.01em;margin-bottom:14px}
-.sub{color:var(--ink2);max-width:660px;margin-bottom:36px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:36px 0}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
-.stat b{display:block;font:600 40px Fraunces,serif;color:var(--accent);line-height:1}
-.stat span{font-size:14px;color:var(--ink2)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column}
-.card h3{font:600 20px Fraunces,serif;margin-bottom:4px}
-.card .kicker{font:500 12px 'JetBrains Mono',monospace;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
-.card p{color:var(--ink2);font-size:16px}
-.card .tags{margin-top:auto;padding-top:16px}
-.tag{display:inline-block;font:500 12px 'JetBrains Mono',monospace;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin:0 6px 6px 0}
-.tag.gold{background:var(--gold-soft);color:var(--gold)}
-.proj{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px}
-.proj + .proj{margin-top:24px}
-.proj-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
-.proj h3{font:600 26px Fraunces,serif}
-.proj .when{font:500 13px 'JetBrains Mono',monospace;color:var(--ink2)}
-.proj .what{color:var(--ink2);margin-top:8px;max-width:720px}
-.proj .meta{margin:16px 0 4px}
-.proj ul{margin:14px 0 26px 20px;color:var(--ink2)}
-.proj li{margin-bottom:8px}
-.proj li b{color:var(--ink);font-weight:600}
-.section-label{font:600 15px Inter,sans-serif;margin:56px 0 16px;color:var(--ink)}
-.timeline{list-style:none;border-left:2px solid var(--line);margin-left:6px}
-.timeline li{position:relative;padding:0 0 30px 28px}
-.timeline li:last-child{padding-bottom:0}
-.timeline li::before{content:"";position:absolute;left:-8px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
-.timeline .t-when{font:500 13px 'JetBrains Mono',monospace;color:var(--accent)}
-.timeline h3{font:600 19px Fraunces,serif;margin:2px 0 4px}
-.timeline p{color:var(--ink2);font-size:16px;max-width:680px}
-.about{display:grid;grid-template-columns:1.4fr 1fr;gap:48px}
-.about p{margin-bottom:16px;color:var(--ink2)}
-.facts{list-style:none;font-size:15px}
-.facts li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:16px}
-.facts li span:first-child{color:var(--ink2)}
-.facts li span:last-child{text-align:right}
-.contact{text-align:center}
-.contact .sub{margin-inline:auto}
-.contact .mail{font:600 clamp(24px,4.5vw,40px) Fraunces,serif;color:var(--accent);text-decoration:none;word-break:break-all}
-.links{display:flex;justify-content:center;gap:12px;margin-top:28px;flex-wrap:wrap}
-footer{padding:36px 0;border-top:1px solid var(--line);color:var(--ink2);font-size:14px}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-@media(max-width:760px){
-  .stats{grid-template-columns:repeat(2,1fr)} .grid,.about{grid-template-columns:1fr} .about{gap:28px}
-  nav ul{gap:14px;font-size:14px} nav ul li.hide-sm{display:none}
-  .hero{padding:64px 0 48px} section{padding:52px 0} .proj{padding:24px}
-}
-</style>
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <nav><div class="wrap">
@@ -150,7 +69,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
     </ul>
     <div class="cta" style="margin-top:0">
       <a class="btn primary" href="https://presenciaapp.vercel.app" target="_blank" rel="noopener">Visit the live site</a>
-      <a class="btn" href="https://claude.ai/artifact/QnpymMgM3wUbm4tJFWESkU" target="_blank" rel="noopener">Read the case study deck</a>
+      <a class="btn" href="/presencia/">Read the full case study</a>
     </div>
   </div>
 
