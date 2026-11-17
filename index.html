@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edwin Miller Freckleton — Software & Data</title>
+<meta name="description" content="Computer science graduate and full-stack developer in Costa Rica. Web apps, PostgreSQL, data pipelines and prediction models.">
+<meta property="og:title" content="Edwin Miller Freckleton">
+<meta property="og:description" content="Full-stack and data work: Presencia Líder, a football prediction pipeline, an AI tutor for kids, and more.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234a7fd4'/><text x='50' y='68' font-size='56' font-family='Georgia' text-anchor='middle' fill='white'>E</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5f1; --card:#ffffff; --ink:#1b2230; --ink2:#5b6475; --line:#e3e1da;
+  --accent:#3b6fc7; --accent-soft:#e8eefa; --gold:#b8913a; --gold-soft:#f6efdf;
+}
+@media (prefers-color-scheme:dark){
+  :root{ --bg:#10141c; --card:#171c27; --ink:#eef0f4; --ink2:#a2abbb; --line:#262d3b; --accent:#7ea6ec; --accent-soft:#1a2438; --gold:#d3ad5a; --gold-soft:#2a2414; }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+code{font:400 .88em 'JetBrains Mono',monospace;background:var(--accent-soft);padding:1px 6px;border-radius:6px}
+.wrap{max-width:980px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+.logo{font:600 20px Fraunces,serif;text-decoration:none}
+nav ul{display:flex;gap:26px;list-style:none;font-size:15px}
+nav ul a{text-decoration:none;color:var(--ink2)}
+nav ul a:hover{color:var(--ink)}
+.hero{padding:96px 0 72px}
+.eyebrow{font:500 13px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font:600 clamp(40px,7vw,68px)/1.05 Fraunces,serif;letter-spacing:-.02em;margin:18px 0 22px}
+h1 em{font-style:italic;color:var(--accent)}
+.lead{font-size:20px;color:var(--ink2);max-width:660px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.btn{display:inline-block;padding:12px 22px;border-radius:999px;font-weight:500;font-size:15px;text-decoration:none;border:1px solid var(--line);background:var(--card);transition:transform .15s}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:hover{transform:translateY(-1px)}
+.hero-facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:40px;font-size:15px;color:var(--ink2)}
+.hero-facts b{color:var(--ink);font-weight:600}
+section{padding:72px 0;border-top:1px solid var(--line)}
+h2{font:600 clamp(28px,4vw,38px)/1.15 Fraunces,serif;letter-spacing:-.01em;margin-bottom:14px}
+.sub{color:var(--ink2);max-width:660px;margin-bottom:36px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:36px 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.stat b{display:block;font:600 40px Fraunces,serif;color:var(--accent);line-height:1}
+.stat span{font-size:14px;color:var(--ink2)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column}
+.card h3{font:600 20px Fraunces,serif;margin-bottom:4px}
+.card .kicker{font:500 12px 'JetBrains Mono',monospace;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.card p{color:var(--ink2);font-size:16px}
+.card .tags{margin-top:auto;padding-top:16px}
+.tag{display:inline-block;font:500 12px 'JetBrains Mono',monospace;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin:0 6px 6px 0}
+.tag.gold{background:var(--gold-soft);color:var(--gold)}
+.proj{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px}
+.proj + .proj{margin-top:24px}
+.proj-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.proj h3{font:600 26px Fraunces,serif}
+.proj .when{font:500 13px 'JetBrains Mono',monospace;color:var(--ink2)}
+.proj .what{color:var(--ink2);margin-top:8px;max-width:720px}
+.proj .meta{margin:16px 0 4px}
+.proj ul{margin:14px 0 26px 20px;color:var(--ink2)}
+.proj li{margin-bottom:8px}
+.proj li b{color:var(--ink);font-weight:600}
+.section-label{font:600 15px Inter,sans-serif;margin:56px 0 16px;color:var(--ink)}
+.timeline{list-style:none;border-left:2px solid var(--line);margin-left:6px}
+.timeline li{position:relative;padding:0 0 30px 28px}
+.timeline li:last-child{padding-bottom:0}
+.timeline li::before{content:"";position:absolute;left:-8px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.timeline .t-when{font:500 13px 'JetBrains Mono',monospace;color:var(--accent)}
+.timeline h3{font:600 19px Fraunces,serif;margin:2px 0 4px}
+.timeline p{color:var(--ink2);font-size:16px;max-width:680px}
+.about{display:grid;grid-template-columns:1.4fr 1fr;gap:48px}
+.about p{margin-bottom:16px;color:var(--ink2)}
+.facts{list-style:none;font-size:15px}
+.facts li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:16px}
+.facts li span:first-child{color:var(--ink2)}
+.facts li span:last-child{text-align:right}
+.contact{text-align:center}
+.contact .sub{margin-inline:auto}
+.contact .mail{font:600 clamp(24px,4.5vw,40px) Fraunces,serif;color:var(--accent);text-decoration:none;word-break:break-all}
+.links{display:flex;justify-content:center;gap:12px;margin-top:28px;flex-wrap:wrap}
+footer{padding:36px 0;border-top:1px solid var(--line);color:var(--ink2);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media(max-width:760px){
+  .stats{grid-template-columns:repeat(2,1fr)} .grid,.about{grid-template-columns:1fr} .about{gap:28px}
+  nav ul{gap:14px;font-size:14px} nav ul li.hide-sm{display:none}
+  .hero{padding:64px 0 48px} section{padding:52px 0} .proj{padding:24px}
+}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="#top">Edwin Miller</a>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li class="hide-sm"><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li class="hide-sm"><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <p class="eyebrow">Full-stack · Data · Systems</p>
+  <h1>I build software that <em>real organizations</em> actually run on.</h1>
+  <p class="lead">I'm Edwin, a computer science graduate in Costa Rica, now finishing a systems engineering degree. I've built a church management platform used across the country, a football data pipeline with a prediction model, and an AI tutor that 100+ kids used in one day. I'm moving into data and technical roles.</p>
+  <div class="cta">
+    <a class="btn primary" href="#work">See my work</a>
+    <a class="btn" href="#contact">Get in touch</a>
+  </div>
+  <div class="hero-facts">
+    <span><b>B.Sc. Computer Science</b> · NCU, 2021</span>
+    <span><b>Systems Eng.</b> · UNADECA, in progress</span>
+    <span><b>English &amp; Spanish</b></span>
+  </div>
+</div></header>
+
+<section id="work"><div class="wrap">
+  <p class="eyebrow">Featured work</p>
+  <h2>Two projects, two sides of the work</h2>
+  <p class="sub">One is a production web app with real users and strict access rules. The other is a data pipeline that cleans messy inputs, models them and tests the results.</p>
+
+  <div class="proj">
+    <div class="proj-head"><h3>Presencia Líder</h3><span class="when">3 developers + faculty advisor · web &amp; backend lead</span></div>
+    <p class="what">A platform where Adventist churches in Costa Rica track weekly small-group meetings, attendance and activities, from the local group up to the national union. It replaces paper reports that leaders often never turned in. Built by three student developers (Android, iOS, and me on web and backend) with a faculty advisor.</p>
+
+    <div class="stats">
+      <div class="stat"><b>188</b><span>database migrations</span></div>
+      <div class="stat"><b>52</b><span>pages in the web app</span></div>
+      <div class="stat"><b>7</b><span>roles, each with its own scope</span></div>
+      <div class="stat"><b>296</b><span>real congregations loaded</span></div>
+    </div>
+
+    <div class="meta">
+      <span class="tag">Next.js 14</span><span class="tag">TypeScript</span><span class="tag">Tailwind</span><span class="tag">PostgreSQL</span><span class="tag">Supabase</span><span class="tag">Row-level security</span><span class="tag">Metabase</span><span class="tag">Vercel</span>
+    </div>
+    <ul>
+      <li><b>Access control in the database.</b> Row-level security policies and a helper function walk church → district → conference → union, so each role only sees its own scope. The rules live in Postgres, not in app code.</li>
+      <li><b>Reports across the whole hierarchy.</b> Attendance, studies, visits and offerings by week, month, quarter or year, compared across conferences, districts, churches or groups, with PDF, Excel and CSV export.</li>
+      <li><b>Faster queries, same results.</b> Moved report summing into the database and cut the yearly report from 930 ms to 155 ms (6×) and the quarterly one from 190 ms to 70 ms. Old and new outputs were compared with <code>EXCEPT ALL</code>: zero rows differ.</li>
+      <li><b>Shared backend for mobile.</b> Defined the data contracts the Android and iOS apps build on, so all three clients work from one schema.</li>
+      <li><b>Analytics layer.</b> A separate <code>analytics</code> schema with materialized views and at-risk snapshots (members drifting away, inactive groups, lapsing visitors), feeding Metabase dashboards that read from a replica synced by cron, never from production.</li>
+      <li><b>Approved for rollout.</b> Signed off by UNADECA and the union for all three Costa Rica missions plus UNADECA's theology students.</li>
+    </ul>
+    <div class="cta" style="margin-top:0">
+      <a class="btn primary" href="https://presenciaapp.vercel.app" target="_blank" rel="noopener">Visit the live site</a>
+      <a class="btn" href="https://claude.ai/artifact/QnpymMgM3wUbm4tJFWESkU" target="_blank" rel="noopener">Read the case study deck</a>
+    </div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-head"><h3>Fantasy Predictor</h3><span class="when">Started as a Data Structures course project</span></div>
+    <p class="what">An end-to-end data project built on a fantasy football API: a Postgres backend under real load, an ETL that cleans messy department data into a reporting layer, dashboards on top, and match predictions.</p>
+    <div class="meta">
+      <span class="tag">Express</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">ETL</span><span class="tag">Data mart</span><span class="tag">Metabase</span><span class="tag">Docker</span><span class="tag">Terraform</span><span class="tag">k6</span><span class="tag gold">Poisson model</span>
+    </div>
+    <ul>
+      <li><b>ETL from messy data.</b> Pulled deliberately inconsistent sources (an Excel ledger, a SQLite database and Notion JSON exports) through a custom ETL into a <code>mart</code> layer, logging every run and every rejected row.</li>
+      <li><b>Dashboards on top.</b> Four Metabase dashboards read from the mart, so every number comes from one cleaned source.</li>
+      <li><b>Infrastructure as code.</b> Terraform defines the stack, from Docker locally to an AWS-style setup with a database, compute, S3 landing zone and scheduled jobs.</li>
+      <li><b>Load tested, bottleneck found.</b> A 1M-row schema under k6 load showed Postgres CPU climbing past the API's. I traced it to connection-pool oversubscription (about 160 connections on 8 cores) and resized the pool to 48.</li>
+      <li><b>Match predictions.</b> A Poisson model predicts match scores from each club's attack and defense strength, with a Dixon-Coles upgrade next.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="projects"><div class="wrap">
+  <p class="eyebrow">More projects</p>
+  <h2>Other things I've built</h2>
+  <p class="sub">Smaller projects across AI, mobile and web. Each one taught me a different part of shipping software.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Ziggy</h3>
+      <p class="kicker">2025 · Math fair</p>
+      <p>An animated lion, powered by OpenAI, that taught kids math, answered their questions and played games with them. It ran from 9 am to 4 pm at a university fair for nearby high schools and was used by an estimated 100+ students.</p>
+      <div class="tags"><span class="tag">OpenAI API</span><span class="tag">Conversational AI</span><span class="tag gold">Live event</span></div>
+    </div>
+    <div class="card">
+      <h3>FitCoach</h3>
+      <p class="kicker">In progress · Mobile · AI</p>
+      <p>A fitness app that will scan a workout routine from a photo with the Claude Vision API, turn it into a log you can track, and add an AI coaching chat.</p>
+      <div class="tags"><span class="tag">React Native</span><span class="tag">Claude Vision API</span><span class="tag">Supabase</span></div>
+    </div>
+    <div class="card">
+      <h3>FocusWave</h3>
+      <p class="kicker">iOS</p>
+      <p>A native iOS focus timer built in SwiftUI with a Supabase backend.</p>
+      <div class="tags"><span class="tag">SwiftUI</span><span class="tag">Supabase</span></div>
+    </div>
+    <div class="card">
+      <h3>Premier League model</h3>
+      <p class="kicker">In progress · 2026/27 season</p>
+      <p>Extending the Fantasy Predictor ideas into a match prediction model for the current Premier League season, tracked against real results as the season goes.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">scikit-learn</span><span class="tag">SQL</span></div>
+    </div>
+  </div>
+
+  <p class="section-label">Toolbox</p>
+  <div class="grid">
+    <div class="card"><h3>Web &amp; backend</h3><p>Next.js, React, TypeScript, Tailwind, Supabase (Postgres, Auth, Edge Functions), REST, row-level security.</p></div>
+    <div class="card"><h3>Data</h3><p>SQL and Postgres query tuning, indexing, bulk loading, load testing, Metabase dashboards, Python, exports to PDF, Excel and CSV.</p></div>
+    <div class="card"><h3>Mobile</h3><p>React Native, SwiftUI, and Kotlin with Jetpack Compose. Sketched the mobile flows for Presencia Líder.</p></div>
+    <div class="card"><h3>Infra &amp; process</h3><p>Docker, Terraform, Vercel, AWS, Git, k6 load testing. Migrations in version control and before/after checks on every change.</p></div>
+  </div>
+</div></section>
+
+<section id="experience"><div class="wrap">
+  <p class="eyebrow">Experience &amp; education</p>
+  <h2>How I got here</h2>
+  <p class="sub">A computer science degree, a few years teaching, and now operations work at a global consulting firm while I build and study.</p>
+  <ul class="timeline">
+    <li>
+      <span class="t-when">Now</span>
+      <h3>Administrative Assistant · Boston Consulting Group</h3>
+      <p>Nexus Center, Heredia. Day-to-day operations support in an English-first global firm, alongside my studies and side projects.</p>
+    </li>
+    <li>
+      <span class="t-when">In progress · expected 2027</span>
+      <h3>Bachillerato, Systems Engineering · UNADECA</h3>
+      <p>Alajuela. Coursework in operating systems, data structures and software projects. Presencia Líder started here. Also helped plan InnovaTech UNADECA 2026, the university's first student hackathon.</p>
+    </li>
+    <li>
+      <span class="t-when">Before BCG</span>
+      <h3>High school teacher</h3>
+      <p>Teaching trained me to explain technical ideas clearly. I use that every day writing docs and presenting to stakeholders.</p>
+    </li>
+    <li>
+      <span class="t-when">2021</span>
+      <h3>B.Sc. Computer Science · Northern Caribbean University</h3>
+      <p>Mandeville, Jamaica. Final project: MYDOC, a doctor appointment and video consultation app deployed on AWS in 2019–2020, before telehealth went mainstream.</p>
+    </li>
+  </ul>
+</div></section>
+
+<section id="about"><div class="wrap">
+  <p class="eyebrow">About</p>
+  <h2>A bit about me</h2>
+  <div class="about">
+    <div>
+      <p>I was born in Costa Rica, grew up in Belize, and studied in Jamaica. That path left me comfortable working across cultures and switching between English and Spanish.</p>
+      <p>Building Presencia Líder showed me what I like most: taking a messy real-world process and turning it into something people use every week. The data side pulls me hardest, especially making sure the numbers are right before anyone acts on them.</p>
+      <p>Long term, I'm drawn to sports analytics, which is why my data projects keep ending up about football.</p>
+    </div>
+    <ul class="facts">
+      <li><span>Based in</span><span>Alajuela, Costa Rica</span></li>
+      <li><span>Degree</span><span>B.Sc. Computer Science</span></li>
+      <li><span>Studying</span><span>Systems Eng., UNADECA</span></li>
+      <li><span>Languages</span><span>English, Spanish</span></li>
+      <li><span>Looking for</span><span>Data / technical roles</span></li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="contact" class="contact"><div class="wrap">
+  <p class="eyebrow">Contact</p>
+  <h2>Let's talk</h2>
+  <p class="sub">Open to data, software and technical roles, in Costa Rica or remote. The fastest way to reach me is email.</p>
+  <a class="mail" href="mailto:contact@edwinmiller.dev">contact@edwinmiller.dev</a>
+  <div class="links">
+    <a class="btn" href="https://www.linkedin.com/in/edwin-miller-freckleton-8b218316a/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn" href="https://github.com/Edwin1904" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><span>© <script>document.write(new Date().getFullYear())</script> Edwin Miller Freckleton</span><span>Alajuela, Costa Rica</span></div></footer>
+</body>
+</html>
