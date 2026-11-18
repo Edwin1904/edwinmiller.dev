@@ -155,7 +155,7 @@ dialog.lb img{display:block;max-width:96vw;max-height:94vh;width:auto;height:aut
 <section id="architecture"><div class="wrap">
   <p class="eyebrow">Architecture</p>
   <h2>One database behind the web and both apps</h2>
-  <div class="arch" role="img" aria-label="Architecture: the web app, Android app and iOS app all talk to one Supabase project (PostgreSQL with row-level security, Auth and Edge Functions), which connects to Brevo email, UNADECA enrollment and a Metabase replica. A separate demo project mirrors it.">
+  <div class="arch" role="img" aria-label="Architecture: the web app, Android app and iOS app all talk to one Supabase project (PostgreSQL with row-level security, Auth and Edge Functions), which connects to Brevo email, UNADECA enrollment and Metabase, through a read-only database role. A separate demo project mirrors it.">
     <div class="arch-col">
       <p class="col-label">Clients</p>
       <div class="node"><b>Web app</b><small>Next.js on Vercel</small></div>
@@ -174,7 +174,7 @@ dialog.lb img{display:block;max-width:96vw;max-height:94vh;width:auto;height:aut
       <p class="col-label">Around it</p>
       <div class="node"><b>Brevo</b><small>transactional email</small></div>
       <div class="node"><b>UNADECA enrollment</b><small>student sync by ID</small></div>
-      <div class="node"><b>Metabase</b><small>reads a cron-synced replica</small></div>
+      <div class="node"><b>Metabase</b><small>reads through a read-only role</small></div>
       <div class="node"><b>Demo project</b><small>separate, so the product can be shown without touching real data</small></div>
     </div>
   </div>
@@ -278,7 +278,7 @@ dialog.lb img{display:block;max-width:96vw;max-height:94vh;width:auto;height:aut
 
 <section id="analytics"><div class="wrap">
   <p class="eyebrow">Analytics layer</p>
-  <h2>Dashboards that never touch production</h2>
+  <h2>Dashboards on a read-only role</h2>
   <p class="prose">A separate <code>analytics</code> schema with materialized views and at-risk snapshots (members drifting away, inactive groups, lapsing visitors), refreshed on a schedule and read by Metabase dashboards through a dedicated read-only database role.</p>
 </div></section>
 
