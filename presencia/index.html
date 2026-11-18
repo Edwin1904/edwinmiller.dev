@@ -279,7 +279,7 @@ dialog.lb img{display:block;max-width:96vw;max-height:94vh;width:auto;height:aut
 <section id="analytics"><div class="wrap">
   <p class="eyebrow">Analytics layer</p>
   <h2>Dashboards that never touch production</h2>
-  <p class="prose">A separate <code>analytics</code> schema with materialized views and at-risk snapshots (members drifting away, inactive groups, lapsing visitors), feeding Metabase dashboards that read from a cron-synced replica, never from production.</p>
+  <p class="prose">A separate <code>analytics</code> schema with materialized views and at-risk snapshots (members drifting away, inactive groups, lapsing visitors), refreshed on a schedule and read by Metabase dashboards through a dedicated read-only database role.</p>
 </div></section>
 
 <section id="unadeca"><div class="wrap">

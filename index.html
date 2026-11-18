@@ -64,7 +64,7 @@
       <li><b>Reports across the whole hierarchy.</b> Attendance, studies, visits and offerings by week, month, quarter or year, compared across conferences, districts, churches or groups, with PDF, Excel and CSV export.</li>
       <li><b>Faster queries, same results.</b> Moved report summing into the database and cut the yearly report from 930 ms to 155 ms (6×) and the quarterly one from 190 ms to 70 ms. Old and new outputs were compared with <code>EXCEPT ALL</code>: zero rows differ.</li>
       <li><b>Shared backend for mobile.</b> Defined the data contracts the Android and iOS apps build on, so all three clients work from one schema.</li>
-      <li><b>Analytics layer.</b> A separate <code>analytics</code> schema with materialized views and at-risk snapshots (members drifting away, inactive groups, lapsing visitors), feeding Metabase dashboards that read from a replica synced by cron, never from production.</li>
+      <li><b>Analytics layer.</b> A separate <code>analytics</code> schema with materialized views and at-risk snapshots (members drifting away, inactive groups, lapsing visitors), refreshed on a schedule and read by Metabase dashboards through a dedicated read-only database role.</li>
       <li><b>Approved for rollout.</b> Signed off by UNADECA and the union for all three Costa Rica missions plus UNADECA's theology students.</li>
     </ul>
     <div class="cta" style="margin-top:0">
